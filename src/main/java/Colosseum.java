@@ -73,6 +73,31 @@ public class Colosseum {
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
+        System.out.println("Please name your Pokemon:");
+        Scanner sc = new Scanner(System.in);
+        String name = sc.nextLine();
+        System.out.println("How many hit points will it have? (1-50):");
+        int hp = sc.nextInt();
+        while (hp > MAX_HIT_POINTS || hp < 1) {
+            System.out.println("Sorry. Hit points must be between 1 and 50:");
+            hp = sc.nextInt();
+        }
+        System.out.println("Split fifty points between attack level and defense level");
+        System.out.println("Enter your attack level (1-49):");
+        int atk = sc.nextInt();
+        while (atk >= MAX_HIT_POINTS || atk <= 0) {
+            System.out.println("Sorry. The attack level must be between 1 and 49");
+            atk = sc.nextInt();
+        }
+        System.out.println("Enter your defense level (1-23):");
+        int def = sc.nextInt();
+        while (def > MAX_HIT_POINTS - atk || def <= 0) {
+            System.out.println("Sorry. The attack level must be between 1 and 49");
+            def = sc.nextInt();
+        }
+        tempPokemon.attackLevel = atk;
+        tempPokemon.hitPoints = hp;
+        tempPokemon.defenseLevel = def;
         return tempPokemon;
     }
 
@@ -90,7 +115,13 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon.name + " is currently ahead!");
+        } else if (firstPokemon.hitPoints < secondPokemon.hitPoints) {
+            System.out.println(secondPokemon.name + " is currently winning!");
+        } else {
+            System.out.println("It's a tie!");
+        }
     }
 
     /**
@@ -101,9 +132,12 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints == 0) {
+            System.out.println(firstPokemon.name + " won!");
+        } else {
+            System.out.println(secondPokemon.name + " won!");
+        }
     }
-
     /**
      * Initializes the member Pokemons.
      * <p>
